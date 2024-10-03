@@ -1,0 +1,1 @@
+# hotel_offer_image_generator
