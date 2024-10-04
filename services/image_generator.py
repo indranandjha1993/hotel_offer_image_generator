@@ -8,12 +8,13 @@ from config import Config
 class ImageGenerator:
     def __init__(self):
         self.client = OpenAI(api_key=Config.OPENAI_API_KEY)
+        self.prompts = Config.load_prompts()['ai_prompts']['image_generation']
 
     def generate_image(self, prompt: str) -> Image.Image:
         try:
             response = self.client.images.generate(
                 model="dall-e-3",
-                prompt=f"A high-quality, professional hotel promotional image based on: {prompt}. The image must not contain any text, words, or letters.",
+                prompt=self.prompts['prompt'].format(prompt=prompt),
                 size="1792x1024",
                 quality="standard",
                 n=1

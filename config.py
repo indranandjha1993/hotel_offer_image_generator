@@ -1,3 +1,4 @@
+import json
 import os
 from dotenv import load_dotenv
 from typing import Tuple, Callable, Dict, List
@@ -11,8 +12,11 @@ PositionFunction = Callable[[int, int, int, int], Position]
 
 
 class Config:
-    IMAGES_FOLDER = "images"
-    FONTS_FOLDER = "fonts"
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    IMAGES_FOLDER = os.path.join(BASE_DIR, "images")
+    FONTS_FOLDER = os.path.join(BASE_DIR, "fonts")
+    PROMPTS_FILE = os.path.join(BASE_DIR, "prompts.json")
+
     DEFAULT_FONT = "arial.ttf"
     DEFAULT_FONT_SIZE = 32
     DEFAULT_TEXT_POSITION = "center"
@@ -51,3 +55,8 @@ class Config:
     BACKGROUND_COLORS = TEXT_COLORS.copy()
 
     FONT_SIZES = [12, 16, 20, 24, 28, 32, 36, 40, 48, 56, 64, 72]
+
+    @staticmethod
+    def load_prompts():
+        with open(Config.PROMPTS_FILE, 'r') as file:
+            return json.load(file)

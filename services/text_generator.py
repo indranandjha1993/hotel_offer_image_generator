@@ -5,16 +5,16 @@ from config import Config
 class TextGenerator:
     def __init__(self):
         self.client = OpenAI(api_key=Config.OPENAI_API_KEY)
+        self.prompts = Config.load_prompts()['ai_prompts']['text_generation']
 
     def generate_offer_text(self, prompt: str, word_limit: int) -> str:
         try:
             completion = self.client.chat.completions.create(
                 model="gpt-4",
                 messages=[
-                    {"role": "system",
-                     "content": "You are a helpful assistant that generates short, catchy hotel offers."},
+                    {"role": "system", "content": self.prompts['system_message']},
                     {"role": "user",
-                     "content": f"Generate a short, catchy hotel offer based on the following prompt: {prompt}. The offer should be approximately {word_limit} words long."}
+                     "content": self.prompts['user_message'].format(prompt=prompt, word_limit=word_limit)}
                 ],
                 max_tokens=100
             )

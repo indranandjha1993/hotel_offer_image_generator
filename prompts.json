@@ -1,0 +1,11 @@
+{
+  "ai_prompts": {
+    "text_generation": {
+      "system_message": "You are a helpful assistant that generates short, catchy hotel offers.",
+      "user_message": "Generate a short, catchy hotel offer based on the following prompt: {prompt}. The offer should be approximately {word_limit} words long."
+    },
+    "image_generation": {
+      "prompt": "A high-quality, professional hotel promotional image based on: {prompt}. The image must not contain any text, words, or letters."
+    }
+  }
+}
