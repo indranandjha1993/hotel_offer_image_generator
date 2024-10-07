@@ -1,0 +1,9 @@
+from factories.ai_service_factory import AIServiceFactory
+
+
+class TextGenerator:
+    def __init__(self, service_name: str = "openai"):
+        self.service = AIServiceFactory.get_text_service(service_name)
+
+    def generate_offer_text(self, prompt: str, word_limit: int) -> str:
+        return self.service.generate_text(prompt, word_limit)

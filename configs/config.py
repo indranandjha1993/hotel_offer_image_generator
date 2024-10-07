@@ -12,10 +12,12 @@ PositionFunction = Callable[[int, int, int, int], Position]
 
 
 class Config:
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    IMAGES_FOLDER = os.path.join(BASE_DIR, "images")
-    FONTS_FOLDER = os.path.join(BASE_DIR, "fonts")
+    AI_SERVICE = "openai"
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
     PROMPTS_FILE = os.path.join(BASE_DIR, "prompts.json")
+    FONTS_FOLDER = os.path.join(BASE_DIR, "fonts")
+    IMAGES_FOLDER = os.path.join(BASE_DIR, "images")
 
     DEFAULT_FONT = "arial.ttf"
     DEFAULT_FONT_SIZE = 32

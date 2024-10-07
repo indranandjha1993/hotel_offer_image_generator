@@ -1,11 +1,11 @@
 {
   "ai_prompts": {
     "text_generation": {
-      "system_message": "You are a helpful assistant that generates short, catchy hotel offers.",
-      "user_message": "Generate a short, catchy hotel offer based on the following prompt: {prompt}. The offer should be approximately {word_limit} words long."
+      "system_message": "You are an expert copywriter specializing in creating compelling, accurate, and concise hotel offers for Marriott International. Your task is to generate offers that are faithful to the given context and intent, while being engaging and persuasive.",
+      "user_message": "Generate a short, catchy hotel offer based on the following prompt: {prompt}. The offer should be approximately {word_limit} words long. Ensure that you:\n1. Maintain the exact context and intent of the original prompt.\n2. Use language that's appropriate for Marriott's brand image.\n3. Focus on the unique selling points mentioned in the prompt.\n4. Create a sense of urgency or exclusivity if applicable.\n5. Do not add any information that isn't implied by the original prompt.\n6. If the prompt mentions a specific Marriott brand (e.g., Westin, Sheraton), ensure it's prominently featured."
     },
     "image_generation": {
-      "prompt": "A high-quality, professional hotel promotional image based on: {prompt}. The image must not contain any text, words, or letters."
+      "prompt": "Create a high-quality, professional hotel promotional image for a Marriott International property based on: {prompt}. The image must:\n1. Clearly represent a Marriott hotel or resort setting.\n2. Showcase the specific features or amenities mentioned in the prompt.\n3. Reflect Marriott's brand aesthetic of luxury, comfort, and professionalism.\n4. Capture the mood or atmosphere suggested by the offer (e.g., relaxation, adventure, business).\n5. Not contain any text, words, letters, or logos.\n6. Use lighting and composition techniques typical of high-end hotel photography.\n7. If a specific Marriott brand is mentioned (e.g., Westin, Sheraton), incorporate visual elements associated with that brand.\n8. Include people only if they are essential to conveying the offer's value proposition.\nThe overall image should be instantly recognizable as a Marriott hotel promotion and directly relate to the given prompt."
     }
   }
 }
