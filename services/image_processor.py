@@ -1,7 +1,7 @@
 import os
 import logging
 import time
-from typing import Tuple
+from typing import Tuple, Callable
 from PIL import Image, ImageDraw, ImageFont
 
 from configs.config import Config
@@ -53,7 +53,8 @@ class ImageProcessor:
         position_func = Config.TEXT_POSITIONS.get(style.position, lambda *args: (0, 0))
         return position_func(text_size[0], text_size[1], image_size[0], image_size[1])
 
-    def overlay_text_on_image(self, image: Image.Image, text: str, style: TextStyle) -> Image.Image:
+    def overlay_text_on_image(self, image: Image.Image, text: str, style: TextStyle,
+                              progress_callback: Callable[[float], None] = None) -> Image.Image:
         """
         Overlay text on the given image.
 
@@ -88,6 +89,9 @@ class ImageProcessor:
 
             # Draw text
             draw.text(text_position, text, font=font, fill=style.text_color)
+
+            if progress_callback:
+                progress_callback(100)  # Assuming overlay text on image is a single step process
 
             return image
         except Exception as e:

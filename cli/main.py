@@ -3,7 +3,7 @@ import os
 import click
 from rich.console import Console
 from rich.panel import Panel
-from rich.progress import Progress
+from rich.progress import Progress, SpinnerColumn, TimeElapsedColumn
 from rich.table import Table
 
 from configs.config import Config
@@ -109,16 +109,41 @@ def generate_offer(prompt, word_limit):
             service = OfferGeneratorService(text_generator, image_generator, image_processor)
             status.update("[bold green]Services initialized!")
 
-        with Progress() as progress:
-            task1 = progress.add_task("[red]Generating offer text...", total=100)
-            task2 = progress.add_task("[green]Generating initial image...", total=100)
-            task3 = progress.add_task("[blue]Applying text overlay...", total=100)
+        with console.status("[bold green]Initializing services...") as status:
+            text_generator = TextGenerator(service_name=Config.AI_SERVICE)
+            image_generator = ImageGenerator(service_name=Config.AI_SERVICE)
+            image_processor = ImageProcessor()
+            service = OfferGeneratorService(text_generator, image_generator, image_processor)
+            status.update("[bold green]Services initialized!")
 
-            offer_text, initial_image, final_image = service.generate_offer(prompt, word_limit, style)
+        with Progress(
+                SpinnerColumn(),
+                *Progress.get_default_columns(),
+                TimeElapsedColumn(),
+                console=console
+        ) as progress:
+            text_task = progress.add_task("[red]Generating offer text...", total=None)
+            image_task = progress.add_task("[green]Generating initial image...", total=None)
+            overlay_task = progress.add_task("[blue]Applying text overlay...", total=None)
 
-            progress.update(task1, completed=100)
-            progress.update(task2, completed=100)
-            progress.update(task3, completed=100)
+            def update_text_progress(value):
+                if value == 100:
+                    progress.update(text_task, completed=100, total=100)
+
+            def update_image_progress(value):
+                if value == 100:
+                    progress.update(image_task, completed=100, total=100)
+
+            def update_overlay_progress(value):
+                if value == 100:
+                    progress.update(overlay_task, completed=100, total=100)
+
+            offer_text, initial_image, final_image = service.generate_offer(
+                prompt, word_limit, style,
+                text_progress=update_text_progress,
+                image_progress=update_image_progress,
+                overlay_progress=update_overlay_progress
+            )
 
         console.print(Panel(f"[bold cyan]Generated offer text:[/bold cyan] {offer_text}", expand=False))
 
