@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - ./images:/app/images
+      - ./fonts:/app/fonts
+    environment:
+      - AI_SERVICE=openai
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    command: python run_api.py
+
+  cli:
+    build: .
+    volumes:
+      - .:/app
+      - ./images:/app/images
+      - ./fonts:/app/fonts
+    environment:
+      - AI_SERVICE=openai
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    command: tail -f /dev/null  # Keeps the container running
+
+volumes:
+  images:
+  fonts:

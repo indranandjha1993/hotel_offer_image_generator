@@ -16,63 +16,63 @@ images for hotels.
     - Background color and opacity for text
 - Test text positioning without generating new images
 - Save both raw generated images and final images with text overlay
+- CLI interface for easy command-line usage
+- RESTful API for integration with other applications
+- Dockerized setup for easy deployment and scaling
 
 ## Prerequisites
 
-- Python 3.12+
+- Docker and Docker Compose
 - OpenAI API key
 
-## Installation
+## Installation and Setup
 
 1. Clone this repository:
    ```
-   git clone https://github.com/yourusername/hotel-offer-image-generator.git
+   git clone https://github.com/indranandjha1993/hotel-offer-image-generator.git
    cd hotel-offer-image-generator
    ```
 
-2. Install required packages:
-   ```
-   pip install -r requirements.txt
-   ```
-
-3. Create a `.env` file in the project root and add your OpenAI API key:
+2. Create a `.env` file in the project root and add your OpenAI API key:
    ```
    OPENAI_API_KEY=your_api_key_here
    ```
 
-4. Create `fonts` and `images` folders in the project directory:
+3. Build and run the Docker containers:
    ```
-   mkdir fonts images
+   docker-compose up --build
    ```
 
-5. Add some TTF font files to the `fonts` folder.
+This will start two services:
+
+- `web`: Runs the FastAPI application, accessible at `http://localhost:8000`
+- `cli`: A service that you can use to run CLI commands
 
 ## Usage
 
-Run the script:
+### Using the CLI
+
+To use the CLI within the Docker container, run:
 
 ```
-python main.py
+docker-compose exec cli python /app/run_cli.py
 ```
 
-Follow the prompts to:
+Follow the prompts to generate hotel offer images.
 
-1. Choose whether to test text positions or generate an offer image
-2. Enter a hotel offer prompt
-3. Specify the word limit for the offer text
-4. Select font, font size, text position, colors, and opacity
+### Using the API
 
-The script will generate and save:
+The API will be available at `http://localhost:8000`. You can use tools like curl, Postman, or create a front-end
+application to interact with the API.
 
-- A raw image based on your prompt (as `generated_image.png`)
-- A final image with text overlay (as `final_offer_image.png`)
+Example API endpoints:
 
-### Testing Text Positions
+- `POST /generate-offer`: Generate a hotel offer image
+- `GET /images/{image_name}`: Retrieve a generated image
+- `GET /fonts`: List available fonts
+- `POST /upload-font`: Upload a new font
 
-If you choose to test text positions:
-
-1. The script will generate test images for all available text positions
-2. Images will be saved in the `images` folder as `test_position_[position].png`
+For detailed API documentation, visit `http://localhost:8000/docs` in your browser.
 
 ## Available Options
 
@@ -85,13 +85,23 @@ If you choose to test text positions:
 ## Customization
 
 - To add more fonts, place TTF files in the `fonts` folder
-- To add more colors, update the `TEXT_COLORS` and `BACKGROUND_COLORS` dictionaries in the script
-- To change available font sizes, modify the `FONT_SIZES` list
+- To add more colors, update the `TEXT_COLORS` and `BACKGROUND_COLORS` dictionaries in the configuration
+- To change available font sizes, modify the `FONT_SIZES` list in the configuration
+
+## Development
+
+To make changes to the project:
+
+1. Modify the code as needed
+2. Rebuild the Docker images: `docker-compose build`
+3. Restart the services: `docker-compose up`
 
 ## Acknowledgments
 
 - OpenAI for GPT-4 and DALL-E 3
 - Pillow library for image processing
+- FastAPI for the REST API framework
+- Docker for containerization
 
 ## Disclaimer
 
