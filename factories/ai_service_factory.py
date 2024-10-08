@@ -5,6 +5,7 @@ from services.openai_service import OpenAITextService, OpenAIImageService
 # from services.aws_bedrock_service import AWSBedrockTextService, AWSBedrockImageService
 # from services.ollama_service import OllamaTextService, OllamaImageService
 
+
 class AIServiceFactory:
     @staticmethod
     def get_text_service(service_name: str) -> TextGenerationService:

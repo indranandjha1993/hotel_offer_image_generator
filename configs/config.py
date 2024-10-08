@@ -35,14 +35,32 @@ class Config:
         "top-right": lambda text_w, text_h, w, h: (w - text_w - 10, 10),
         "center-left": lambda text_w, text_h, w, h: (10, (h - text_h) // 2),
         "center": lambda text_w, text_h, w, h: ((w - text_w) // 2, (h - text_h) // 2),
-        "center-right": lambda text_w, text_h, w, h: (w - text_w - 10, (h - text_h) // 2),
+        "center-right": lambda text_w, text_h, w, h: (
+            w - text_w - 10,
+            (h - text_h) // 2,
+        ),
         "bottom-left": lambda text_w, text_h, w, h: (10, h - text_h - 10),
-        "bottom-center": lambda text_w, text_h, w, h: ((w - text_w) // 2, h - text_h - 10),
+        "bottom-center": lambda text_w, text_h, w, h: (
+            (w - text_w) // 2,
+            h - text_h - 10,
+        ),
         "bottom-right": lambda text_w, text_h, w, h: (w - text_w - 10, h - text_h - 10),
-        "middle-top-left": lambda text_w, text_h, w, h: (w // 4 - text_w // 2, h // 4 - text_h // 2),
-        "middle-top-right": lambda text_w, text_h, w, h: (3 * w // 4 - text_w // 2, h // 4 - text_h // 2),
-        "middle-bottom-left": lambda text_w, text_h, w, h: (w // 4 - text_w // 2, 3 * h // 4 - text_h // 2),
-        "middle-bottom-right": lambda text_w, text_h, w, h: (3 * w // 4 - text_w // 2, 3 * h // 4 - text_h // 2),
+        "middle-top-left": lambda text_w, text_h, w, h: (
+            w // 4 - text_w // 2,
+            h // 4 - text_h // 2,
+        ),
+        "middle-top-right": lambda text_w, text_h, w, h: (
+            3 * w // 4 - text_w // 2,
+            h // 4 - text_h // 2,
+        ),
+        "middle-bottom-left": lambda text_w, text_h, w, h: (
+            w // 4 - text_w // 2,
+            3 * h // 4 - text_h // 2,
+        ),
+        "middle-bottom-right": lambda text_w, text_h, w, h: (
+            3 * w // 4 - text_w // 2,
+            3 * h // 4 - text_h // 2,
+        ),
     }
 
     TEXT_COLORS: Dict[str, Color] = {
@@ -51,7 +69,7 @@ class Config:
         "red": (255, 0, 0),
         "green": (0, 255, 0),
         "blue": (0, 0, 255),
-        "yellow": (255, 255, 0)
+        "yellow": (255, 255, 0),
     }
 
     BACKGROUND_COLORS = TEXT_COLORS.copy()
@@ -60,5 +78,5 @@ class Config:
 
     @staticmethod
     def load_prompts():
-        with open(Config.PROMPTS_FILE, 'r') as file:
+        with open(Config.PROMPTS_FILE, "r") as file:
             return json.load(file)

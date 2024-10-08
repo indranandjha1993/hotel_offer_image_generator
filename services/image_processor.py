@@ -37,8 +37,9 @@ class ImageProcessor:
             self.logger.warning(f"Font {font_name} not found. Using default font.")
             return ImageFont.load_default().font_variant(size=size)
 
-    def calculate_text_position(self, text_size: Tuple[int, int], image_size: Tuple[int, int], style: TextStyle) -> \
-            Tuple[int, int]:
+    def calculate_text_position(
+        self, text_size: Tuple[int, int], image_size: Tuple[int, int], style: TextStyle
+    ) -> Tuple[int, int]:
         """
         Calculate the position of the text on the image.
 
@@ -53,8 +54,13 @@ class ImageProcessor:
         position_func = Config.TEXT_POSITIONS.get(style.position, lambda *args: (0, 0))
         return position_func(text_size[0], text_size[1], image_size[0], image_size[1])
 
-    def overlay_text_on_image(self, image: Image.Image, text: str, style: TextStyle,
-                              progress_callback: Callable[[float], None] = None) -> Image.Image:
+    def overlay_text_on_image(
+        self,
+        image: Image.Image,
+        text: str,
+        style: TextStyle,
+        progress_callback: Callable[[float], None] = None,
+    ) -> Image.Image:
         """
         Overlay text on the given image.
 
@@ -67,7 +73,7 @@ class ImageProcessor:
             Image.Image: The image with overlaid text.
         """
         try:
-            draw = ImageDraw.Draw(image, 'RGBA')
+            draw = ImageDraw.Draw(image, "RGBA")
             font = self.get_font(style.font_name, style.font_size)
 
             text_bbox = draw.textbbox((0, 0), text, font=font)
@@ -75,7 +81,9 @@ class ImageProcessor:
             text_height = text_bbox[3] - text_bbox[1]
 
             padding = max(5, int(style.font_size * 0.2))
-            text_position = self.calculate_text_position((text_width, text_height), image.size, style)
+            text_position = self.calculate_text_position(
+                (text_width, text_height), image.size, style
+            )
 
             # Calculate background rectangle
             bg_left = max(0, text_position[0] - padding)
@@ -85,13 +93,17 @@ class ImageProcessor:
 
             # Draw background
             bg_color_with_opacity = style.bg_color + (int(style.bg_opacity * 255),)
-            draw.rectangle((bg_left, bg_top, bg_right, bg_bottom), fill=bg_color_with_opacity)
+            draw.rectangle(
+                (bg_left, bg_top, bg_right, bg_bottom), fill=bg_color_with_opacity
+            )
 
             # Draw text
             draw.text(text_position, text, font=font, fill=style.text_color)
 
             if progress_callback:
-                progress_callback(100)  # Assuming overlay text on image is a single step process
+                progress_callback(
+                    100
+                )  # Assuming overlay text on image is a single step process
 
             return image
         except Exception as e:

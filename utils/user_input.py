@@ -6,7 +6,9 @@ def get_user_choice(prompt: str, options: List[Any], default: Any) -> Any:
     for i, option in enumerate(options, 1):
         print(f"{i}. {option}")
     while True:
-        choice = input(f"Enter your choice (number) or press Enter for default ({default}): ").strip()
+        choice = input(
+            f"Enter your choice (number) or press Enter for default ({default}): "
+        ).strip()
         if choice == "":
             return default
         try:

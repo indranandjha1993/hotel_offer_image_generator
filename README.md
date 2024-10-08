@@ -96,6 +96,49 @@ To make changes to the project:
 2. Rebuild the Docker images: `docker-compose build`
 3. Restart the services: `docker-compose up`
 
+# Using the Makefile
+
+This project includes a Makefile for easy management of common tasks. To see all available commands, run:
+
+```
+make
+```
+
+### Some useful commands include:
+
+- `make build`: Build Docker images
+- `make up`: Start the application
+- `make down`: Stop the application
+- `make run-cli`: Run the CLI application
+- `make run-api`: Run the API application
+- `make logs`: View application logs
+- `make clean`: Clean up generated files and Docker artifacts
+
+### For development:
+
+- `make install`: Install Python dependencies
+- `make lint`: Run the linter
+- `make test`: Run tests
+- `make format`: Format the code
+
+### Testing
+
+This project uses pytest for testing. To run the tests:
+
+```
+make test
+```
+
+To create a new test file:
+
+```
+make create-test
+```
+
+When prompted, enter the name for your test file (without the .py extension).
+
+Ensure that your tests are placed in the `tests` directory and that test file names start with `test_`.
+
 ## Acknowledgments
 
 - OpenAI for GPT-4 and DALL-E 3

@@ -45,7 +45,7 @@ async def generate_offer(offer_request: OfferRequest):
             position=offer_request.position,
             text_color=Config.TEXT_COLORS[offer_request.text_color],
             bg_color=Config.BACKGROUND_COLORS[offer_request.bg_color],
-            bg_opacity=offer_request.bg_opacity
+            bg_opacity=offer_request.bg_opacity,
         )
 
         offer_text, initial_image, final_image = offer_service.generate_offer(
@@ -53,8 +53,12 @@ async def generate_offer(offer_request: OfferRequest):
         )
 
         # Save images
-        initial_image_filename = image_processor.get_timestamp_filename(f"{offer_text[:20]}_initial.jpg")
-        final_image_filename = image_processor.get_timestamp_filename(f"{offer_text[:20]}_final.jpg")
+        initial_image_filename = image_processor.get_timestamp_filename(
+            f"{offer_text[:20]}_initial.jpg"
+        )
+        final_image_filename = image_processor.get_timestamp_filename(
+            f"{offer_text[:20]}_final.jpg"
+        )
 
         initial_image_path = os.path.join(Config.IMAGES_FOLDER, initial_image_filename)
         final_image_path = os.path.join(Config.IMAGES_FOLDER, final_image_filename)
@@ -65,7 +69,7 @@ async def generate_offer(offer_request: OfferRequest):
         return OfferResponse(
             offer_text=offer_text,
             initial_image_url=f"/images/{initial_image_filename}",
-            final_image_url=f"/images/{final_image_filename}"
+            final_image_url=f"/images/{final_image_filename}",
         )
 
     except Exception as e:
